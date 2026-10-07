@@ -13,6 +13,7 @@
             <th>Author</th>
             <th>Year</th>
             <th>Available</th>
+            <th>Actions</th>
         </tr>
         <% List<Book> books = (List<Book>) request.getAttribute("books"); %>
         <% if (books.size() > 0) { %>
@@ -23,6 +24,7 @@
                     <td><%= book.getAuthor() %></td>
                     <td><%= book.getYear() %></td>
                     <td><%= book.isAvailable() ? "Yes" : "No" %></td>
+                    <td><a href="${pageContext.request.contextPath}/update?id=<%= book.getId() %>">Toggle Status</a></td>
                 </tr>
             <% } %>
         <% } %>

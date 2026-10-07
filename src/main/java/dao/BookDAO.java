@@ -1,9 +1,7 @@
 package dao;
 
 import entities.Book;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -20,9 +18,28 @@ public class BookDAO {
 
     public boolean add(Book book) {
         try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+            EntityTransaction transaction = em.getTransaction();
+
+            transaction.begin();
             em.persist(book);
-            em.getTransaction().commit();
+            transaction.commit();
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean update(String id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction transaction = em.getTransaction();
+
+            transaction.begin();
+
+            Book book = em.find(Book.class, id);
+            book.setAvailable(!book.isAvailable());
+
+            transaction.commit();
 
             return true;
         } catch (Exception e) {

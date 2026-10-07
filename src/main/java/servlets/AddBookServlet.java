@@ -26,7 +26,7 @@ public class AddBookServlet extends HttpServlet {
             int year = Integer.parseInt(yearStr);
             boolean available = Boolean.parseBoolean(availableStr);
 
-            Book book = new Book(title, author, year, available);
+            Book book = new Book(title, author, year, !available);
 
             dao.add(book);
 
